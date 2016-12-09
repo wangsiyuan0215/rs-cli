@@ -1,6 +1,6 @@
 {
     "name": "react-generator-cli",
-    "version": "0.0.1",
+    "version": "0.0.7",
     "description": "generator cli for demo, run this cli for generating document & files for wms",
     "main": "index.js",
     "scripts": {
@@ -10,13 +10,17 @@
         "cli",
         "wms"
     ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/wangsiyuan0215/react-generator-cli.git"
+    },
+    "bugs": {
+        "url": "https://github.com/wangsiyuan0215/react-generator-cli/issues"
+    },
+    "homepage": "https://github.com/wangsiyuan0215/react-generator-cli",
     "author": "siyuan",
     "license": "MIT",
     "devDependencies": {
         "commander": "^2.9.0"
-    },
-    "preferGlobal": true,
-    "bin": {
-        "wms-cli": "./bin/index.js"
     }
 }
