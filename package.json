@@ -1,0 +1,22 @@
+{
+    "name": "generator-cli",
+    "version": "0.0.1",
+    "description": "generator cli for demo, run this cli for generating document & files for wms",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "cli",
+        "wms"
+    ],
+    "author": "siyuan",
+    "license": "MIT",
+    "devDependencies": {
+        "commander": "^2.9.0"
+    },
+    "preferGlobal": true,
+    "bin": {
+        "wms-cli": "index.js"
+    }
+}
