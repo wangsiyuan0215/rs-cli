@@ -1,0 +1,56 @@
+@import "./lib/lib";
+
+.home_box {
+	#{$P}: 2rem 0;
+
+	.list {
+		#{$LST}: $N;
+		#{$P}: 0 1rem;
+		#{$M}: 0 -1.5%;
+		#{$W}: 103%;
+		@include inlineBlock;
+		
+		& > li {
+			#{$P}: 1rem 0;
+			#{$W}: 30.333%;
+			#{$M}: 0 1.5%;
+			@include border(none, 0.5rem);
+
+			& > i {
+				#{$D}: $BLO;
+				#{$LH}: 6rem;
+				#{$FS}: 4rem;
+				#{$TA}: $CEN;
+
+				@include max-screen(340px) {
+					#{$LH}: 5rem;
+				};
+			}
+			& > p {
+				#{$D}: $BLO;
+				@include font($lh: 2rem, $fs: 1.2rem, $fc: #fff7f4, $ta: $CEN);
+				@include border($N, 1rem);
+			}
+			&.apis {
+				#{$BC}: $deeper_deputyColor1;
+				& > i {
+					#{$C}: #eee;
+				}
+			}
+			&.pro {
+				#{$BC}: $deeper_deputyColor2;
+				& > i {
+					#{$FS}: 3.9rem;
+					#{$C}: #eee;
+				}
+			}
+			&.user {
+				#{$BC}: $deeper_deputyColor3;
+				& > i {
+					#{$FS}: 5rem;
+					#{$C}: #eee;
+				}
+			}
+		}
+	}
+}

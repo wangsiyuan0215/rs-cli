@@ -1,0 +1,9 @@
+@import "../lib/lib";
+
+.title {
+	#{$M}: 2rem 1rem 1rem;
+	#{$BOL}: solid 0.8rem $mainColor;
+	#{$BC}: $bannerColor;
+	@include font($lh: 4rem, $fs: 1.3rem, $fc: #ddd, $ta: $CEN);
+	@include border(none, 0.5rem);
+}

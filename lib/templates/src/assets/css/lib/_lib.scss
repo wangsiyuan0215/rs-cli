@@ -1,0 +1,296 @@
+// + -------------------------------------
+// | _common.scss
+// + -------------------------------------
+// | scss lib
+// + -------------------------------------
+// | author: Wangsiyuan @ 2016-07-12
+// + -------------------------------------
+
+// 变量
+$font_icon_family: 'iconfont';
+$font_iconf_path: '../fonts';
+$font_detault_size: 12px;
+$font_detault_family: -apple-system, BlinkMacSystemFont, "Segoe UI", 
+                        "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", 
+                        "Droid Sans", "Hiragino Sans GB", "Microsoft Yahei", 
+                        "微软雅黑", Arial, Helvetica, STHeiti, sans-serif, 
+                        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";;
+
+// colors
+$mainColor: #242d3b;
+$bannerColor: #171e28;
+$deputyColor1: #ff8d5b;
+$deputyColor2: #f1e163;
+$deputyColor3: #3fb3f9;
+$deeper_deputyColor1: #fc6e4c;
+$deeper_deputyColor2: #ecc855;
+$deeper_deputyColor3: #2da8e4;
+$sepratingColor: #37404d;
+$fadeColor: #000;
+
+// * ********************* A ******************** *
+$A: auto;
+$ABS: absolute;
+
+// * ********************* B ******************** *
+$B: bottom;
+$BA: background;
+$BC: background-color;
+$BS: background-size;
+$BP: background-position;
+$BR: background-repeat;
+$BI: background-image;
+$BO: border;
+$BOT: border-top;
+$BORI: border-right;
+$BOB: border-bottom;
+$BOL: border-left;
+$BOR: border-radius;
+$BOC: border-color;
+$BOS: box-sizing;
+$BB: border-box;
+$BLO: block;
+
+// * ********************* C ******************** */
+$C: color;
+$CEN: center;
+$CON: content;
+$CUR: cursor;
+
+// * ********************* D ******************** */
+$D: display;
+
+// * ********************* F ******************** */
+$F: float;
+$FS: font-size;
+$FW: font-weight;
+$FF: font-family;
+$FIX: fixed;
+
+// * ********************* H ******************** */
+$H: height;
+$HID: hidden;
+
+// * ********************* I ******************** */
+$I: !important;
+$IB: inline-block;
+$IHER: inherit;
+
+// * ********************* K ******************** */
+$K: -webkit-;
+
+// * ********************* L ******************** */
+$L: left;
+$LH: line-height;
+$LS: letter-spacing;
+$LST: list-style;
+
+// * ********************* M ******************** */
+$M: margin;
+$MT: margin-top;
+$MR: margin-right;
+$MB: margin-bottom;
+$ML: margin-left;
+$MIW: min-width;
+$MAW: max-width;
+$MIH: min-height;
+$MAH: max-height;
+
+// * ********************* N ******************** */
+$N: none;
+$NOR: normal;
+$NR: no-repeat;
+
+// * ********************* O ******************** */
+$O: opacity;
+$OUT: outline;
+$OVER: overflow;
+
+// * ********************* P ******************** */
+$P: padding;
+$PT: padding-top;
+$PR: padding-right;
+$PB: padding-bottom;
+$PL: padding-left;
+$PO: position;
+$POINT: pointer;
+
+// * ********************* R ******************** */
+$R: right;
+$RELA: relative;
+
+// * ********************* T ******************** */
+$T: top;
+$TA: text-align;
+$TD: text-decoration;
+$TI: text-indent;
+$TR: transparent;
+
+// * ********************* V ******************** */
+$V: vertical-align;
+
+// * ********************* W ******************** */
+$W: width;
+$WS: word-space;
+
+// * ********************* Z ******************** */
+$Z: zoom;
+$ZI: z-index;
+
+// * ********************* 兼容性 前缀 ******************** */
+$IE6: '_';
+$IE7: '*';
+
+// * ********************* 兼容性后缀 ******************** */
+$_IE8: \9;
+
+@mixin initHtml {
+    #{$FS}: $font_detault_size;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    -webkit-text-size-adjust: 100%;
+       -moz-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+
+    & > body {
+        #{$M}: 0;
+        #{$P}: 0;
+        #{$FF}: $font_detault_family;
+    }
+}
+
+@mixin tapNoHighLight {
+    -webkit-tap-highlight-color:rgba(0,0,0,0.1);
+    -moz-tap-highlight-color:rgba(0,0,0,0.1);
+    -ms-tap-highlight-color:rgba(0,0,0,0.1);
+    -o-tap-highlight-color:rgba(0,0,0,0.1);
+    tap-highlight-color:rgba(0,0,0,0.1);
+}
+
+@mixin noAppearance {
+     -webkit-appearance: $N;
+}
+
+@mixin inlineBlock {
+    @include _none_space;
+
+    & > * {
+        @include _inline_block;
+        #{$LS}: $NOR;
+        #{$WS}: $NOR;
+        #{$FS}: $font_detault_size;
+    }
+}
+
+@mixin blur($blur) {
+    filter: url(blur.svg#blur); /* FireFox, Chrome, Opera */
+    
+    -webkit-filter: blur($blur); /* Chrome, Opera */
+       -moz-filter: blur($blur);
+        -ms-filter: blur($blur);    
+            filter: blur($blur);
+    
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=$blur, MakeShadow=false); /* IE6~IE9 */
+}
+
+@mixin _none_space {
+    #{$LS}: -4px;
+    #{$WS}: 0px;
+    #{$FS}: 0;
+}
+
+@mixin _inline_block {
+    #{$V}: $T;
+    #{$D}: $IB;
+    *zoom: 1;
+    *#{$D}: inline;
+}
+
+@mixin cube($cube) {
+    #{$W}: $cube;
+    #{$H}: $cube;
+}
+
+@mixin font($lh: $font_detault_size, $fc: #000, $fs:1rem, $fw: $NOR, $ls:0, $ta: $L) {
+    #{$LH}: $lh;
+    #{$FS}: $fs;
+    #{$FF}: $font_detault_family;
+    #{$FW}: $fw;
+    #{$C}: $fc;
+    #{$LS}: $ls;
+    #{$TA}: $ta;
+}
+
+@mixin background($bc: #fff, $bp: $N, $url: '', $bs: $N, $br: $NR) {
+    #{$BC}: $bc;
+    #{$BP}: $bp;
+    #{$BI}: url($url);
+    #{$BR}: $br;
+    #{$BS}: $bs;
+}
+
+@mixin border($border: $N, $br: 0) {
+    #{$BO}: $border;
+    #{$BOR}: $br;
+}
+
+@mixin transition($transition...) {
+    -webkit-transition: $transition;
+    -moz-transition: $transition;
+    -ms-transition: $transition;
+    -o-transition: $transition;
+    transition: $transition;
+}
+
+@mixin transform($transform...) {
+    -webkit-transform: $transform;
+    -moz-transform: $transform;
+    -ms-transform: $transform;
+    -o-transform: $transform;
+    transform: $transform;
+}
+
+@mixin max-screen($res){
+    @media only screen and ( max-width: $res ) {
+        @content;
+    }
+}
+
+@mixin min-screen($res){
+    @media ( min-width: $res ){
+        @content;
+    }
+}
+
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+    @-ms-keyframes #{$name} {
+        @content;
+    }
+    @keyframes #{$name} {
+        @content;
+    }
+}
+@mixin arrowLeft($size: 2rem, $bc: #fff) {
+    #{$D}: $BLO;
+    @include cube($size);
+    #{$BORI}: solid $size $bc;
+    #{$BOL}: solid $size $TR;
+    #{$BOT}: solid $size $TR;
+    #{$BOB}: solid $size $TR;
+    #{$BC}: $TR;
+}
+@mixin arrowRight($size: 2rem, $bc: #fff) {
+    #{$D}: $BLO;
+    @include cube($size);
+    #{$BORI}: solid $size $TR;
+    #{$BOL}: solid $size $bc;
+    #{$BOT}: solid $size $TR;
+    #{$BOB}: solid $size $TR;
+    #{$BC}: $TR;
+}
