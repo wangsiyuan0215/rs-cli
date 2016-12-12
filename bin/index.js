@@ -68,7 +68,7 @@ function initialConfig () {
 
     var _configFiles = {
         "_config": fs.readFileSync(PATHS._CONFIG_PATH(), 'utf8'),
-        "karma.config": fs.readFileSync(PATHS.KARMA_CONFIG_PATH(), 'utf8'),
+        "karma.conf": fs.readFileSync(PATHS.KARMA_CONFIG_PATH(), 'utf8'),
         "product": fs.readFileSync(PATHS.PRODUCT_PATH(), 'utf8'),
         "server": fs.readFileSync(PATHS.SERVER_PATH(), 'utf8'),
         "webpack.config": fs.readFileSync(PATHS.WEBPACK_CONFIG_PATH(), 'utf8'),
