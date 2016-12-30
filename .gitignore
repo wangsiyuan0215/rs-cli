@@ -1,2 +1,3 @@
-
-lib/templates/config/_config.js
+node_modules
+test
+npm-*
