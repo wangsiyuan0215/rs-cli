@@ -1,5 +1,5 @@
 {
-    "name": "react-generator-cli",
+    "name": "react-stage-cli",
     "version": "1.0.1",
     "description": "generator cli for demo, run this cli for generating document & files for react",
     "main": "./bin/index.js",
@@ -32,6 +32,6 @@
         "bin"
     ],
     "bin": {
-        "rgc-init": "./bin/rgc-init.js"
+        "rsc-init": "./bin/rsc-init.js"
     }
 }

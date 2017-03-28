@@ -49,7 +49,7 @@
 20 silly publish   bin: { 'rgc-init': './bin/rgc-init.js' },
 20 silly publish   readme: '# React Generator Cli\n\n## Installation\n\n### Npm\n```\nnpm install react-generator-cli -g\n```\n\n### Yarn\n\n```\nyarn global add react-generator-cli\n```\n\n## Usage\n\nJust for generating a stage for react project, you can use following:\n\n```\nrgc-init <projectName>\n```\n\nAnd you can type following commands:\n\n\n### Npm\n\n```\ncd <projectName> && npm install\n```\n\n### Yarn\n\n```\ncd <projectName> && yarn install\n```',
 20 silly publish   readmeFilename: 'README.md',
-20 silly publish   gitHead: '626303e8dd7c420a3ad3bd9b482f4cb2cfc5b8ad',
+20 silly publish   gitHead: '837b6c665176b897c9ba0f67d5ab67c79e2871fe',
 20 silly publish   _id: 'react-generator-cli@1.0.1',
 20 silly publish   _shasum: '949beb1606cb4e00c2f627310feefb3a591f4128',
 20 silly publish   _from: '.' }
@@ -69,22 +69,22 @@
 28 silly publish uploading /Users/wangsiyuan/.npm/react-generator-cli/1.0.1/package.tgz
 29 verbose request uri https://registry.npmjs.org/react-generator-cli
 30 verbose request sending authorization for write operation
-31 info attempt registry request try #1 at 11:30:42 PM
+31 info attempt registry request try #1 at 11:32:23 PM
 32 verbose request using bearer token for auth
-33 verbose request id 31eb2e42e8bea1ad
+33 verbose request id f52482524f5944af
 34 http request PUT https://registry.npmjs.org/react-generator-cli
 35 http 403 https://registry.npmjs.org/react-generator-cli
 36 verbose headers { 'content-type': 'application/json',
 36 verbose headers   'cache-control': 'max-age=300',
 36 verbose headers   'content-length': '113',
 36 verbose headers   'accept-ranges': 'bytes',
-36 verbose headers   date: 'Tue, 28 Mar 2017 15:30:43 GMT',
+36 verbose headers   date: 'Tue, 28 Mar 2017 15:32:28 GMT',
 36 verbose headers   via: '1.1 varnish',
 36 verbose headers   connection: 'keep-alive',
-36 verbose headers   'x-served-by': 'cache-itm7420-ITM',
+36 verbose headers   'x-served-by': 'cache-itm7423-ITM',
 36 verbose headers   'x-cache': 'MISS',
 36 verbose headers   'x-cache-hits': '0',
-36 verbose headers   'x-timer': 'S1490715042.784914,VS0,VE485',
+36 verbose headers   'x-timer': 'S1490715148.446399,VS0,VE506',
 36 verbose headers   vary: 'Accept-Encoding' }
 37 verbose request invalidating /Users/wangsiyuan/.npm/registry.npmjs.org/react-generator-cli on PUT
 38 error publish Failed PUT 403
