@@ -1,15 +1,15 @@
 {
     "name": "react-generator-cli",
-    "version": "0.1.4",
-    "description": "generator cli for demo, run this cli for generating document & files for wms",
+    "version": "1.0.1",
+    "description": "generator cli for demo, run this cli for generating document & files for react",
     "main": "./bin/index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node ./bin/rgc-init.js"
     },
     "keywords": [
-        "cli",
-        "wms"
+        "react",
+        "cli"
     ],
     "repository": {
         "type": "git",
