@@ -4,7 +4,8 @@
     "description": "generator cli for demo, run this cli for generating document & files for wms",
     "main": "./bin/index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node ./bin/rgc-init.js"
     },
     "keywords": [
         "cli",
@@ -24,13 +25,13 @@
     "dependencies": {
         "chalk": "^1.1.3",
         "commander": "^2.9.0",
-        "minimist": "^1.2.0"
+        "download-git-repo": "^0.2.1"
     },
     "files": [
         "lib",
         "bin"
     ],
     "bin": {
-        "react-generator": "./bin/index.js"
+        "rgc-init": "./bin/rgc-init.js"
     }
 }
