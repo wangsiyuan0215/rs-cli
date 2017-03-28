@@ -12,14 +12,14 @@
         "cli"
     ],
     "repository": {
-        "type": "git",
+        "type": "github",
         "url": "https://github.com/wangsiyuan0215/react-generator-cli.git"
     },
     "bugs": {
         "url": "https://github.com/wangsiyuan0215/react-generator-cli/issues"
     },
     "homepage": "https://github.com/wangsiyuan0215/react-generator-cli",
-    "author": "siyuan",
+    "author": "wangsiyuan0215",
     "license": "MIT",
     "devDependencies": {},
     "dependencies": {
