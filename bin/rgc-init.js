@@ -54,15 +54,16 @@ if (typeof projectName === 'undefined') {
 
 /**
  * 从 github 上下载相应的 repo 到 projectName
- * @method download
+ * @method downloadFromGithub
  * @param  {string}  repo
  * @param  {string}  target
  */
-function download (repo, target) {
-    console.log(chalk.yellow(`starting initialize...`));
+function downloadFromGithub (repo, target) {
+    console.log(chalk.yellow('Initializing...'));
     download(repo, target, function(err) {
         if (err) return err;
-        console.log(chalk.green(`end initialize, success!`));
+        console.log();
+        console.log(chalk.green(`Success!`));
     });
 }
 
@@ -93,5 +94,5 @@ function run (projectPath) {
         fs.mkdirSync(_projectPath);
     }
 
-    download(packageJson.templateRepo, _projectPath);
+    downloadFromGithub(packageJson.templateRepo, _projectPath);
 }
