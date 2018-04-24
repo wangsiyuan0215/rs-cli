@@ -57,35 +57,34 @@ function downloadFromGithub (repo, target) {
     download(repo, target, function(err) {
         if (err) return err;
 
-        var packageJsonPath = path.resolve(process.cwd(), projectName, 'package.json'),
-            packageObject = require(packageJsonPath),
-            packageJson = modifyPackage(packageObject);
+        var packageObject = getTargetPackage(projectName),
+            packageJsonPath = path.resolve(target, 'package.json');
         
-        fs.writeFileSync(packageJsonPath, packageJson);
-        console.log(`Done...the project path is ${target}`);
-
-        console.log(chalk.cyan(`Checking version of node and npm...`));
+        editPackage(target, packageObject);
+        
         checkNodeVersion(packageObject);
-        var npmInfo = checkNpmVersion();
-        if (npmInfo.hasMinNpm) {
-            if (npmInfo.npmVersion) {
-                console.log(
-                    chalk.yellow(`
-                        You are using npm ${npmInfo.npmVersion} so the project will be boostrapped with an old unsupported version of tools.\n
-                        Please update to npm 3 or higher for a better, fully supported experience.\n
-                    `)
-                );
-            }
-        }
 
-        console.log(chalk.cyan(`Preparing to \`${chalk.green('npm install')}\`...`));
-        var command = 'npm',
-            args = ['install', '--save'];
-        childProcess.execSync(`cd ${target} && ${command} ${args.join(' ')}`, { stdio: 'inherit' });
+        checkNpmVersion();
+
+        installByNpm(target);
     });
 }
 
+function installByNpm (targetPath) {
+    console.log(chalk.cyan(`Preparing to \`${chalk.green('npm install')}\`...`));
+    var command = 'npm',
+        args = ['install', '--save'];
+    childProcess.execSync(`cd ${targetPath} && ${command} ${args.join(' ')}`, { stdio: 'inherit' });
+}
+
+function getTargetPackage (target) {
+    var packageJsonPath = path.resolve(target, 'package.json');
+    return require(packageJsonPath);
+}
+
 function checkNodeVersion(packageObject) {
+    console.log(chalk.cyan(`Checking version of node...`));
+
     var nodeVersion = childProcess.execSync('node --version').toString().trim();
     console.log(`Version of node: ${nodeVersion}`);
 
@@ -108,30 +107,42 @@ function checkNodeVersion(packageObject) {
 }
 
 function checkNpmVersion () {
+    console.log(chalk.cyan(`Checking version of npm...`));
+
     var hasMinNpm = false,
         npmVersion = null;
     try {
         npmVersion = childProcess.execSync('npm --version').toString().trim();
         console.log(`Version of npm: ${npmVersion}`);
         hasMinNpm = semver.gte(npmVersion, '3.0.0');
+
+        if (!hasMinNpm && npmVersion) {
+            throw new Error({ hasMinNpm: hasMinNpm, npmVersion: npmVersion });
+        }
     } catch (err) {
-      // ignore
+        console.log(
+            chalk.yellow(`
+                You are using npm ${err.npmVersion} so the project will be boostrapped with an old unsupported version of tools.\n
+                Please update to npm 3 or higher for a better, fully supported experience.\n
+            `)
+        );
     }
-    return {
-        hasMinNpm: hasMinNpm,
-        npmVersion: npmVersion,
-    };
 }
 
-function modifyPackage (packageObject) {
+function writeToPackageJson (targetPath, packageJson) {
+    var packageJsonPath = path.resolve(targetPath, 'package.json');
+    fs.writeFileSync(packageJsonPath, packageJson);
+    console.log(`Done...the project path is ${targetPath}`);
+}
+
+function editPackage (targetPath, packageObject) {
     packageObject.name = projectName;
     packageObject.version = '0.0.1';
     packageObject.author = '';
     packageObject.description = '';
     delete packageObject.jest;
     delete packageObject.keywords;
-
-    return JSON.stringify(packageObject);
+    writeToPackageJson(targetPath, JSON.stringify(packageObject));
 }
 
 /**
