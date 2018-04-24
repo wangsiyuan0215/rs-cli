@@ -19,6 +19,7 @@ var program = new commander.Command(packageJson.name)
         projectName = name;
     })
     .allowUnknownOption()
+    .option('--verison', packageJson.version)
     .on('--help', () => {
         console.log(`    Only ${chalk.green('<project-name>')} is required.`);
         console.log();
