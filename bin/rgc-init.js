@@ -93,5 +93,5 @@ function run (projectPath) {
         fs.mkdirSync(_projectPath);
     }
 
-    downloadFromGitHub(packageJson.templateRepo, _projectPath);
+    download(packageJson.templateRepo, _projectPath);
 }
