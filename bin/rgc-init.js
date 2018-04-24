@@ -27,8 +27,6 @@ var program = new commander.Command(packageJson.name)
     })
     .parse(process.argv);
 
-console.log(program);
-
 if (typeof projectName === 'undefined') {
     if (program.info) {
         envinfo.print({
