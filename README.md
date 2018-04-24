@@ -18,7 +18,7 @@ yarn global add react-generator-cli
 Just for generating a stage for react project, you can use following:
 
 ```
-rgc-init <projectName>
+rgc <projectName>
 ```
 
 And you can type following commands:
