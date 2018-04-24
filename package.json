@@ -33,6 +33,6 @@
     ],
     "templateRepo": "wangsiyuan0215/react-template",
     "bin": {
-        "rsc-init": "./bin/rsc-init.js"
+        "rgc": "./bin/rgc-init.js"
     }
 }
