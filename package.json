@@ -1,5 +1,5 @@
 {
-    "name": "react-stage-cli",
+    "name": "react-generator-cli",
     "version": "1.0.1",
     "description": "generator cli for demo, run this cli for generating document & files for react",
     "main": "./bin/index.js",
@@ -31,6 +31,7 @@
         "lib",
         "bin"
     ],
+    "templateRepo": "wangsiyuan0215/react-template",
     "bin": {
         "rsc-init": "./bin/rsc-init.js"
     }
