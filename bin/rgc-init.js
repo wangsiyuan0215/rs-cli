@@ -140,7 +140,6 @@ function editPackage (targetPath, packageObject) {
     packageObject.version = '0.0.1';
     packageObject.author = '';
     packageObject.description = '';
-    delete packageObject.jest;
     delete packageObject.keywords;
     writeToPackageJson(targetPath, JSON.stringify(packageObject));
 }
