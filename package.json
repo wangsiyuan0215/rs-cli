@@ -1,6 +1,6 @@
 {
     "name": "react-generator-cli",
-    "version": "1.1.0-alpha4",
+    "version": "1.1.1",
     "description": "generator cli for demo, run this cli for generating document & files for react",
     "main": "./bin/index.js",
     "scripts": {
