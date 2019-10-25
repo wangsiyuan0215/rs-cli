@@ -2,6 +2,7 @@
 
 var fs = require('fs'),
     path = require('path'),
+    semver = require('semver'),
     commander = require('commander'),
     spawn = require('cross-spawn'),
     childProcess = require('child_process'),
@@ -59,9 +60,9 @@ function downloadFromGithub (repo, target) {
 
         var packageObject = getTargetPackage(projectName),
             packageJsonPath = path.resolve(target, 'package.json');
-        
+
         editPackage(target, packageObject);
-        
+
         checkNodeVersion(packageObject);
 
         checkNpmVersion();
@@ -91,7 +92,7 @@ function checkNodeVersion(packageObject) {
     if (!packageObject.engines || !packageObject.engines.node) {
         return;
     }
-  
+
     if (!semver.satisfies(process.version, packageObject.engines.node)) {
         console.error(
             chalk.red(
