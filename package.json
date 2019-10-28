@@ -1,7 +1,7 @@
 {
     "name": "@siyuan0215/rs-cli",
     "commandName": "rs-cli",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "react staging cli, for generating scaffold with react and umiJs",
     "main": "./bin/index.js",
     "scripts": {
@@ -28,7 +28,7 @@
     "devDependencies": {},
     "dependencies": {
         "chalk": "^1.1.3",
-        "commander": "^2.9.0",
+        "commander": "^3.0.2",
         "cross-spawn": "^6.0.5",
         "download-git-repo": "^0.2.1",
         "readline-sync": "^1.4.10",

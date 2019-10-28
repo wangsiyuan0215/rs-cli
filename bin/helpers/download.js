@@ -4,6 +4,7 @@
  * @Description: download
  */
 
+const io = require('./io');
 const download = require('download-git-repo');
 
 /**
@@ -14,9 +15,12 @@ const download = require('download-git-repo');
  * @param {function} callback
  */
 module.exports = function _download (repo, target, callback) {
+    const startTime = Date.now();
     return download(repo, target, function(err) {
         if (err) return err;
 
-        typeof callback == 'function' && callback();
+        const endTime = Date.now();
+
+        typeof callback == 'function' && callback(((endTime - startTime)/1000).toFixed(2));
     });
 };

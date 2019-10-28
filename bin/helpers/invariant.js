@@ -14,7 +14,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
             return args[argsIndex++];
         });
 
-        io.print4error(('ERROR'), errorMessage);
+        io.print4error(errorMessage);
 
         throw new Error(errorMessage);
     }
