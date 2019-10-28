@@ -1,6 +1,7 @@
 {
     "name": "@siyuan0215/rs-cli",
-    "version": "1.0.2",
+    "commandName": "rs-cli",
+    "version": "1.0.4",
     "description": "react staging cli, for generating scaffold with react and umiJs",
     "main": "./bin/index.js",
     "scripts": {
@@ -11,6 +12,9 @@
         "react",
         "cli"
     ],
+    "engines": {
+        "node": ">=8"
+    },
     "repository": {
         "type": "github",
         "url": "https://github.com/wangsiyuan0215/react-generator-cli.git"
@@ -27,7 +31,9 @@
         "commander": "^2.9.0",
         "cross-spawn": "^6.0.5",
         "download-git-repo": "^0.2.1",
-        "semver": "^6.3.0"
+        "readline-sync": "^1.4.10",
+        "semver": "^6.3.0",
+        "single-line-log": "^1.1.2"
     },
     "files": [
         "lib",

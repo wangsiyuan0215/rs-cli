@@ -1,18 +1,20 @@
 #!/usr/bin/env node
 
-var fs = require('fs'),
-    path = require('path'),
-    semver = require('semver'),
-    commander = require('commander'),
-    spawn = require('cross-spawn'),
-    childProcess = require('child_process'),
-    chalk = require('chalk'),
-    download = require('download-git-repo'),
-    packageJson = require('../package.json');
+const fs = require('fs');
+const io = require('./helpers/io');
+const path = require('path');
+const chalk = require('chalk');
+const install = require('./helpers/install');
+const download = require('./helpers/download');
+const commander = require('commander');
+const invariant = require('./helpers/invariant');
+const packageJson = require('../package.json');
+const handler4version = require('./helpers/version');
+const handler4packageJson = require('./helpers/handler4package');
 
-var projectName;
+let projectName = null;
 
-var program = new commander.Command(packageJson.name)
+const program = new commander.Command(packageJson.commandName)
     .version(packageJson.version)
     .arguments('<project-name>')
     .usage(`${chalk.green('<project-name>')} [options]`)
@@ -44,118 +46,91 @@ if (typeof projectName === 'undefined') {
     );
     process.exit(1);
 } else {
-    run(program.args[0]);
-}
-
-/**
- * 从 github 上下载相应的 repo 到 projectName
- * @method downloadFromGithub
- * @param  {string}  repo
- * @param  {string}  target
- */
-function downloadFromGithub (repo, target) {
-    console.log(chalk.cyan(`Initializing the project <${projectName}>...`));
-    download(repo, target, function(err) {
-        if (err) return err;
-
-        var packageObject = getTargetPackage(projectName),
-            packageJsonPath = path.resolve(target, 'package.json');
-
-        editPackage(target, packageObject);
-
-        checkNodeVersion(packageObject);
-
-        checkNpmVersion();
-
-        installByNpm(target);
-    });
-}
-
-function installByNpm (targetPath) {
-    console.log(chalk.cyan(`Preparing to \`${chalk.green('npm install')}\`...`));
-    var command = 'npm',
-        args = ['install', '--save'];
-    childProcess.execSync(`cd ${targetPath} && ${command} ${args.join(' ')}`, { stdio: 'inherit' });
-}
-
-function getTargetPackage (target) {
-    var packageJsonPath = path.resolve(target, 'package.json');
-    return require(packageJsonPath);
-}
-
-function checkNodeVersion(packageObject) {
-    console.log(chalk.cyan(`Checking version of node...`));
-
-    var nodeVersion = childProcess.execSync('node --version').toString().trim();
-    console.log(`Version of node: ${nodeVersion}`);
-
-    if (!packageObject.engines || !packageObject.engines.node) {
-        return;
-    }
-
-    if (!semver.satisfies(process.version, packageObject.engines.node)) {
-        console.error(
-            chalk.red(
-            'You are running Node %s.\n' +
-                'Create React App requires Node %s or higher. \n' +
-                'Please update your version of Node.'
-            ),
-            process.version,
-            packageObject.engines.node
-        );
-        process.exit(0);
-    }
-}
-
-function checkNpmVersion () {
-    console.log(chalk.cyan(`Checking version of npm...`));
-
-    var hasMinNpm = false,
-        npmVersion = null;
-    try {
-        npmVersion = childProcess.execSync('npm --version').toString().trim();
-        console.log(`Version of npm: ${npmVersion}`);
-        hasMinNpm = semver.gte(npmVersion, '3.0.0');
-
-        if (!hasMinNpm && npmVersion) {
-            throw new Error({ hasMinNpm: hasMinNpm, npmVersion: npmVersion });
-        }
-    } catch (err) {
-        console.log(
-            chalk.yellow(`
-                You are using npm ${err.npmVersion} so the project will be boostrapped with an old unsupported version of tools.\n
-                Please update to npm 3 or higher for a better, fully supported experience.\n
-            `)
-        );
-    }
-}
-
-function writeToPackageJson (targetPath, packageJson) {
-    var packageJsonPath = path.resolve(targetPath, 'package.json');
-    fs.writeFileSync(packageJsonPath, packageJson);
-    console.log(`Done...the project path is ${targetPath}`);
-}
-
-function editPackage (targetPath, packageObject) {
-    packageObject.name = projectName;
-    packageObject.version = '0.0.1';
-    packageObject.author = '';
-    packageObject.description = '';
-    delete packageObject.keywords;
-    writeToPackageJson(targetPath, JSON.stringify(packageObject));
+    run(projectName);
 }
 
 /**
  * 项目初始化任务运行
  * @method run
- * @param  {string}  projectPath
  */
-function run (projectPath) {
-    var _projectPath = path.resolve(process.cwd(), projectPath);
+function run (name) {
+    console.log(`
+    *************************************************************************
+    *             _____    _____          _____  _       _____              * 
+    *            |  __ \\  / ____|        / ____|| |     |_   _|             *
+    *            | |__) || (___  ______ | |     | |       | |               *
+    *            |  _  /  \\___ \\|______|| |     | |       | |               *
+    *            | | \\ \\  ____) |       | |____ | |____  _| |_              *
+    *            |_|  \\_\\|_____/         \\_____||______||_____|             *
+    *                                                                       *
+    *************************************************************************             
+    `);
 
-    if (!fs.existsSync(_projectPath)) {
-        fs.mkdirSync(_projectPath);
+    // 判断 projectName 是否合法
+    invariant(/^[a-zA-Z0-9\-_]*$/.test(name), 'your projectName %s is illegal, please typing correct projectName with number and words...', name);
+
+    // 获取目标目录
+    const projectPath = path.resolve(process.cwd(), name);
+
+    // 验证是否存在目录
+    io.print4title(`Checking ${name} folder...`);
+
+    const isExisted = fs.existsSync(projectPath);
+
+    if (isExisted) {
+        // 验证目标目录是否为空
+        const files = fs.readdirSync(projectPath);
+        invariant(!files.length, 'target folder %s is not empty, please make sure that your project folder is empty.', name);
+
+        io.print4skipped(`${name} folder has been existed, but it's empty, will override...`);
+
+    } else {
+        io.print4skipped('No such project or folder, skipped...');
     }
 
-    downloadFromGithub(packageJson.templateRepo, _projectPath);
+    io.print4title('Checking...Done!');
+
+    // 清除已经存在的空文件夹 or 创建目标文件夹
+    io.print4title(`${isExisted ? 'Overriding' : 'Creating' } ${name} folder...`);
+
+    isExisted && fs.rmdirSync(projectPath);
+    fs.mkdirSync(projectPath);
+
+    io.print4title(`${isExisted ? 'Overriding' : 'Creating' }...Done!`, 'path:', projectPath);
+
+    // 检查当前 node 运行环境
+    io.print4title(`Checking current version of node...`);
+
+    handler4version.node(packageJson);
+
+    io.print4title('Checking...Done!');
+
+    // 检查当前 NPM 的版本
+    io.print4title(`Checking current version of npm...`);
+
+    handler4version.npm(packageJson);
+
+    io.print4title('Checking...Done!');
+
+    // 下载相应 Git 地址的模板
+    const loading = io.print4loading('Downloading');
+
+    download(packageJson.templateRepo, projectPath, function () {
+
+        clearInterval(loading);
+
+        io.print4title('Downloading...Done!');
+
+        // 编辑模板的 package.json 以及相应的其他文件并回写
+        handler4packageJson(projectPath, name);
+
+        // 清除 npm cache 并开始安装
+        io.print4title('Preparing to install all dependencies...');
+
+        install(projectPath);
+
+        io.print4title('\nAll dependencies has been installed, Please Enjoy it!');
+    });
+
+    // process.exit(0);
 }
