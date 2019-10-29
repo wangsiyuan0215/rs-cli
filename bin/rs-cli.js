@@ -68,6 +68,21 @@ function run (name, usingRN = false, usingYarn = false) {
     *************************************************************************             
     `);
 
+    // 检查当前 node 运行环境
+    io.print4title(`Checking current version of node...`);
+    handler4version.node(packageJson);
+    io.print4title('Checking...Done!');
+
+    // 检查当前 NPM / YARN 的版本
+    if (!usingYarn) {
+        io.print4title(`Checking current version of npm...`);
+        handler4version.dependenciesManager(handler4version.dependenciesManagerTypes.NPM);
+    } else {
+        io.print4title(`Checking current version of yarn...`);
+        handler4version.dependenciesManager(handler4version.dependenciesManagerTypes.YARN);
+    }
+    io.print4title('Checking...Done!');
+
     // 判断 projectName 是否合法
     invariant(/^[a-zA-Z0-9\-_]*$/.test(name), 'your projectName %s is illegal, please typing correct projectName with number and words...', name);
 
@@ -96,21 +111,6 @@ function run (name, usingRN = false, usingYarn = false) {
     isExisted && fs.rmdirSync(projectPath);
     fs.mkdirSync(projectPath);
     io.print4title(`${isExisted ? 'Overriding' : 'Creating' }...Done!`, 'path:', projectPath);
-
-    // 检查当前 node 运行环境
-    io.print4title(`Checking current version of node...`);
-    handler4version.node(packageJson);
-    io.print4title('Checking...Done!');
-
-    // 检查当前 NPM / YARN 的版本
-    if (!usingYarn) {
-        io.print4title(`Checking current version of npm...`);
-        handler4version.dependenciesManager(handler4version.dependenciesManagerTypes.NPM);
-    } else {
-        io.print4title(`Checking current version of yarn...`);
-        handler4version.dependenciesManager(handler4version.dependenciesManagerTypes.YARN);
-    }
-    io.print4title('Checking...Done!');
 
     // 下载相应 Git 地址的模板
     const loading = io.print4loading('Downloading');

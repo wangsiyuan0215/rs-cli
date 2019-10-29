@@ -23,7 +23,7 @@ function node(packageObject) {
 
     if (!semver.satisfies(process.version, packageObject.engines.node)) {
         io.print4error(
-            `You are running Node ${process.version}. Create React App requires Node ${packageObject.engines.node} or higher. Please update your version of Node.`
+            `You are running Node ${process.version}. rs-cli requires Node ${packageObject.engines.node} or higher. Please update your version of Node.`
         );
         process.exit(0);
     }
