@@ -8,7 +8,7 @@ const childProcess = require('child_process');
 
 const commands = {
     npm: {
-        cache: `npm cache clean`,
+        cache: `npm cache clean --force`,
         install: `npm install`
     },
     yarn: {

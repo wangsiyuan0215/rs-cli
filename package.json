@@ -1,7 +1,7 @@
 {
     "name": "@siyuan0215/rs-cli",
     "commandName": "rs-cli",
-    "version": "1.0.6",
+    "version": "1.0.8",
     "description": "react staging cli, for generating scaffold with react and umiJs",
     "main": "./bin/index.js",
     "scripts": {
