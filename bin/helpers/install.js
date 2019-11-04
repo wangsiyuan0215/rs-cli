@@ -1,7 +1,7 @@
 /*
  * @Author: SiYuan Wang
  * @Date: 2019-10-28 14:16:23
- * @Description: npm install
+ * @Description: js dependencies install
  */
 
 const childProcess = require('child_process');
@@ -17,9 +17,9 @@ const commands = {
     }
 };
 
-module.exports = function _npm (targetPath, withYarn) {
+module.exports = function _npm (targetPath, withYarn, withCache) {
     const commander = commands[withYarn ? 'yarn' : 'npm'];
     return childProcess.execSync(
-        `cd ${targetPath} && ${commander.cache} && ${commander.install}`,
+        `cd ${targetPath} ${!withCache && `&& ${commander.cache}` || ''} && ${commander.install}`,
         { stdio: 'inherit' });
 };

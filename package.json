@@ -13,7 +13,9 @@
         "cli"
     ],
     "engines": {
-        "node": ">=8"
+        "npm": ">=6.0.0",
+        "node": ">=8",
+        "yarn": ">=1.13.0"
     },
     "repository": {
         "type": "github",
@@ -39,7 +41,10 @@
         "lib",
         "bin"
     ],
-    "templateRepo": "wangsiyuan0215/react-template",
+    "templateRepo": {
+        "true": "wangsiyuan0215/react-native-template",
+        "false": "wangsiyuan0215/react-template"
+    },
     "bin": {
         "rs-cli": "./bin/rs-cli.js"
     }

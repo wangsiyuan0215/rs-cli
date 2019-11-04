@@ -8,51 +8,33 @@ const io = require('./io');
 const semver = require('semver');
 const childProcess = require('child_process');
 
-/**
- * 检查 node 版本
- * @param packageObject {{ engines: object }}
- */
-function node(packageObject) {
-    const nodeVersion = childProcess.execSync('node --version').toString().trim();
+const checker = (command, args = ['--version'], name, version, url) => {
+    try {
+        const currentVersion = childProcess.execSync(`${command} ${args.join(' ')}`).toString().trim();
+        const finalVersion = currentVersion.match(/\d+(\.\d+){0,2}/)[0];
 
-    io.print4info(`  Version of node: ${nodeVersion}`);
+        io.print4skipped(`  Version of ${name}: ${finalVersion}`);
 
-    if (!packageObject.engines || !packageObject.engines.node) {
-        return;
-    }
+        if (version) {
+            const isRanged = semver.satisfies(finalVersion, version);
 
-    if (!semver.satisfies(process.version, packageObject.engines.node)) {
-        io.print4error(
-            `You are running Node ${process.version}. rs-cli requires Node ${packageObject.engines.node} or higher. Please update your version of Node.`
+            if (!isRanged) {
+                io.print4error(`
+                \n  You are using ${name}@${finalVersion} so the project will be boostrapped with an old unsupported version of tools.
+                \n  Please update to ${version} for a better, fully supported experience.`);
+                process.exit(0);
+            }
+        }
+    } catch(error) {
+        io.print4error(`
+        \n  The \`${command}\` command is not found.
+        \n  It may not be installed the \`${name}\` environment. It is recommended to install it first according to the official website tutorial.
+        \n  For more information, please see ${url}`
         );
         process.exit(0);
     }
-}
-
-/**
- * 检查 npm/yarn 版本
- */
-const dependenciesManagerTypes = {
-    NPM: 'npm',
-    YARN: 'yarn'
 };
-function dependenciesManager (name = dependenciesManagerTypes.NPM) {
-    const version = childProcess.execSync(`${name} --version`).toString().trim();
-
-    io.print4info(`  Version of ${name}: ${version}`);
-
-    const hasMinVersion = semver.gte(version, name === dependenciesManagerTypes.NPM ? '3.0.0' : '1.13.0');
-
-    if (!hasMinVersion && version) {
-        io.print4error(
-            `You are using ${name} ${version} so the project will be boostrapped with an old unsupported version of tools. Please update to npm 3.0.0 or yarn 1.13.0 or higher for a better, fully supported experience.`
-        );
-        process.exit(0);
-    }
-}
 
 module.exports = {
-    dependenciesManager,
-    dependenciesManagerTypes,
-    node
+    checker
 };

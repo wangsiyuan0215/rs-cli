@@ -16,7 +16,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 
         io.print4error(errorMessage);
 
-        throw new Error(errorMessage);
+        process.exit(-1);
     }
 }
 

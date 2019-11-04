@@ -20,10 +20,10 @@ const print4loading = (str, max = 6) => {
     let count = 0;
 
     const dot = '.';
-    return setInterval(function () {
+    const timer = setInterval(function () {
         let dots = '';
         if (count < max) {
-            for(let i = 0 ; i < count ; i++) dots += dot;
+            for(let i = 0 ; i <= count ; i++) dots += dot;
             count++;
         } else {
             dots = '';
@@ -31,7 +31,12 @@ const print4loading = (str, max = 6) => {
         }
 
         slog(chalk.white.bgBlue.bold(`${str}${dots}`), '\n\n');
-    }, 300);
+    }, 500);
+
+    return () => {
+        slog(chalk.white.bgBlue.bold(`${str}......`), '\n\n');
+        timer && clearInterval(timer);
+    };
 };
 
 module.exports = {
