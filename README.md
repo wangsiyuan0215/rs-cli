@@ -39,3 +39,5 @@ rs-cli <projectName> [options]
 * `-y, --with-yarn`: 在安装依赖时，使用 `yarn` 进行安装；
 
 * `-r, --react-native`：构建 `react-native` 工程（feature，未上线）；
+
+* `-c, --cache`：安装依赖时，禁止使用清除缓存功能；
