@@ -42,7 +42,7 @@ program
         console.log();
         console.log(`  Run ${chalk.cyan(`rs-cli <command> --help`)} for detailed usage of given command.`);
         console.log(`  If you have any problems, do not hesitate to file an issue:`);
-        console.log(`  ${chalk.cyan('https://github.com/wangsiyuan0215/react-generator-cli/issues/new')}`);
+        console.log(`  ${chalk.cyan('https://github.com/wangsiyuan0215/rs-cli/issues/new')}`);
     })
 
 program.parse(process.argv)

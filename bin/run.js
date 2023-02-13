@@ -40,7 +40,7 @@ function run (name, options) {
 Thanks for using @capgemini/rs-cli!
 Scaffolding based on react, umiJs and surrounding ecology.
 Designed to simplify the build-up and release process deployment of the development environment.
-If you have any questions, please issue: https://github.com/wangsiyuan0215/react-generator-cli/issues\n`);
+If you have any questions, please issue: https://github.com/wangsiyuan0215/rs-cli/issues\n`);
 
     // 检查当前 node 运行环境
     io.print4title(`Checking node environment and version`);
