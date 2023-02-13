@@ -21,7 +21,7 @@ function getTargetPackage (target) {
 }
 
 function writeBackToTargetPackage (targetPath, packageObject) {
-    fs.writeFileSync(targetPath, JSON.stringify(packageObject));
+    fs.writeFileSync(targetPath, JSON.stringify(packageObject, null, 4));
 }
 
 module.exports = function handler4packageJson (targetPath, projectName) {

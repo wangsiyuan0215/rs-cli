@@ -13,16 +13,16 @@ const checker = (command, args = ['--version'], name, version, url) => {
         const currentVersion = childProcess.execSync(`${command} ${args.join(' ')}`).toString().trim();
         const finalVersion = currentVersion.match(/\d+(\.\d+){0,2}/)[0];
 
-        io.print4skipped(`  Version of ${name}: ${finalVersion}`);
+        io.print4info(`${name}: ${finalVersion}`);
 
         if (version) {
             const isRanged = semver.satisfies(finalVersion, version);
 
             if (!isRanged) {
                 io.print4error(`
-                \n  You are using ${name}@${finalVersion} so the project will be boostrapped with an old unsupported version of tools.
-                \n  Please update to ${version} for a better, fully supported experience.`);
-                process.exit(0);
+                \n  You are using ${name}@${finalVersion}, but this version of cli requires ${name}@${version}.
+                \n  Please upgrade your ${name} version.`);
+                process.exit(1);
             }
         }
     } catch(error) {

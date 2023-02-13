@@ -8,13 +8,16 @@ const slog = require('single-line-log').stdout;
 const chalk = require('chalk');
 
 
-const print4title = (str, ...arg) => console.log(chalk.white.bgBlue.bold(str), ...arg, '\n');
+const print4title = (str, ...arg) => console.log(chalk.bgBlue.bold(str), ...arg);
 
-const print4skipped = (str, ...arg) => console.log(chalk.cyan(str), ...arg, '\n');
+const print4skipped = (str, ...arg) => console.log(chalk.cyan(str), ...arg);
 
-const print4info = (str, ...arg) => console.log(chalk.white(str), ...arg, '\n');
+const print4info = (str, ...arg) => console.log(str, ...arg);
 
-const print4error = (str, ...arg) => console.log(chalk.white.bgRed.bold('Error'), str, ...arg, '\n');
+const print4error = (str, ...arg) => {
+    console.log();
+    console.log(chalk.bgRed.bold('Error'), chalk.red(str), ...arg);
+}
 
 const print4loading = (str, max = 6) => {
     let count = 0;
@@ -30,11 +33,11 @@ const print4loading = (str, max = 6) => {
             count = 0;
         }
 
-        slog(chalk.white.bgBlue.bold(`${str}${dots}`), '\n\n');
+        slog(chalk.bgBlue.bold(`${str}${dots}`));
     }, 500);
 
     return () => {
-        slog(chalk.white.bgBlue.bold(`${str}......`), '\n\n');
+        slog(chalk.white.bgBlue.bold(`${str}......`), '\n');
         timer && clearInterval(timer);
     };
 };
