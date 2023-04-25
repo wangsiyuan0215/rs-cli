@@ -38,7 +38,6 @@
         "single-line-log": "^1.1.2"
     },
     "files": [
-        "lib",
         "bin"
     ],
     "templateRepo": {
@@ -46,6 +45,6 @@
         "false": "wangsiyuan0215/react-template"
     },
     "bin": {
-        "rs-cli": "./bin/rs-cli.js"
+        "rs-cli": "./bin/cli.js"
     }
 }
