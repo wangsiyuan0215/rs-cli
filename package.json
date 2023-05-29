@@ -6,7 +6,8 @@
     "main": "./bin/index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node ./bin/cli.js"
+        "start": "node ./bin/cli.js",
+        "preinstall": "node ./scripts/pre-install.js"
     },
     "keywords": [
         "react",

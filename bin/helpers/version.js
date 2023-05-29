@@ -10,21 +10,24 @@ const childProcess = require('child_process');
 
 const checker = (command, args = ['--version'], name, version, url) => {
     try {
-        const currentVersion = childProcess.execSync(`${command} ${args.join(' ')}`).toString().trim();
-        const finalVersion = currentVersion.match(/\d+(\.\d+){0,2}/)[0];
+      const currentVersion = childProcess
+        .execSync(`${command} ${args.join(" ")}`)
+        .toString()
+        .trim();
+      const finalVersion = currentVersion.match(/\d+(\.\d+){0,2}/)[0];
 
-        io.print4info(`${name}: ${finalVersion}`);
+      if (version) {
+        const isRanged = semver.satisfies(finalVersion, version);
 
-        if (version) {
-            const isRanged = semver.satisfies(finalVersion, version);
-
-            if (!isRanged) {
-                io.print4error(`
+        if (!isRanged) {
+          io.print4error(`
                 \n  You are using ${name}@${finalVersion}, but this version of cli requires ${name}@${version}.
                 \n  Please upgrade your ${name} version.`);
-                process.exit(1);
-            }
+          process.exit(1);
         }
+
+        return finalVersion;
+      }
     } catch(error) {
         io.print4error(`
         \n  The \`${command}\` command is not found.
