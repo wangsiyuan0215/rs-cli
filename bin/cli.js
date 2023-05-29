@@ -7,12 +7,12 @@ const commander = require('commander');
 const packageJson = require('../package.json');
 
 const program =  new commander.Command(packageJson.commandName)
-    .version(`@capgemini/rs-cli ${packageJson.version}`)
+    .version(`@siyuan0215/rs-cli@${packageJson.version}`)
     .usage('<command> [options]')
 
 program
     .command('create <app-name>')
-    .description('create a new project powered by @capgemini/rs-cli')
+    .description('create a new project powered by @siyuan0215/rs-cli')
     .option('-c, --cache', 'using cache for dependencies', false)
     .option('-f, --force', 'Overwrite target directory if it exists')
     .option('-r, --registry <url>', 'Use specified npm registry when installing dependencies (only for npm)')
@@ -42,7 +42,7 @@ program
         console.log();
         console.log(`  Run ${chalk.cyan(`rs-cli <command> --help`)} for detailed usage of given command.`);
         console.log(`  If you have any problems, do not hesitate to file an issue:`);
-        console.log(`  ${chalk.cyan('https://github.com/wangsiyuan0215/rs-cli/issues/new')}`);
+        console.log(`  ${chalk.yellow('https://github.com/wangsiyuan0215/rs-cli/issues/new')}\n`);
     })
 
 program.parse(process.argv)

@@ -37,7 +37,7 @@ function run (name, options) {
 *************************************************************************`);
 
     io.print4info(`
-Thanks for using @capgemini/rs-cli!
+Thanks for using @siyuan0215/rs-cli!
 Scaffolding based on react, umiJs and surrounding ecology.
 Designed to simplify the build-up and release process deployment of the development environment.
 If you have any questions, please issue: https://github.com/wangsiyuan0215/rs-cli/issues\n`);
