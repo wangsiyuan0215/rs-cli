@@ -4,8 +4,8 @@
  * @Description: io
  */
 
-const slog = require('single-line-log').stdout;
-const chalk = require('chalk');
+const slog = require("single-line-log").stdout;
+const chalk = require("chalk");
 
 const printLogo = () =>
   console.log(`
@@ -27,11 +27,16 @@ Designed to simplify the build-up and release process deployment of the developm
 If you have any questions, please issue: https://github.com/wangsiyuan0215/rs-cli/issues\n`);
 
 const print4title = (title) => {
-  const loading = print4loading(title, 6);
+  const loading = print4loading(title);
 
-  return (result) => {
+  return (result, isOnlyUsingResult = false) => {
     loading();
-    slog("[💯]", chalk.green.bold(title), result);
+    slog(
+      "[💯]",
+      ...(!isOnlyUsingResult
+        ? [title, result]
+        : [chalk.green.bold(result)])
+    );
     console.log();
   };
 };
@@ -40,31 +45,33 @@ const print4skipped = (str, ...arg) => console.log(chalk.cyan(str), ...arg);
 
 const print4info = (str, ...arg) => console.log(str, ...arg);
 
+const print4success = (str, ...arg) => console.log(chalk.green.bold(str), ...arg);
+
 const print4error = (str, ...arg) => {
   console.log();
-  console.log(chalk.bgRed.bold("Error"), chalk.red(str), ...arg);
+  console.log(chalk.red.bold("💥 Error:"), chalk.red(str), ...arg);
 };
 
-const print4loading = (str, max = 6) => {
+const print4loading = (str, max = 10) => {
   let count = 0;
 
-  const dot = ".";
+  const clocks = ["🕐", "🕑", "🕒", "🕓", "🕔", "🕕", "🕖", "🕗", "🕘", "🕙", "🕚"];
   const timer = setInterval(function () {
-    let dots = "";
+    let c = "";
     if (count < max) {
-      for (let i = 0; i <= count; i++) dots += dot;
       count++;
+      c = clocks[count];
     } else {
-      dots = "";
       count = 0;
+      c = clocks[count];
     }
 
-    slog(chalk.yellow.bold(`${str}${dots}`));
-  }, 500);
+    slog(chalk.yellow.bold(`[${c}] ${str}`));
+  }, 66);
 
   return () => {
-    slog(chalk.green.bold(str));
     timer && clearInterval(timer);
+    slog(chalk.green.bold(str));
   };
 };
 
@@ -73,6 +80,7 @@ module.exports = {
   print4info,
   print4error,
   print4title,
+  print4success,
   print4loading,
   print4skipped,
   printDescription,

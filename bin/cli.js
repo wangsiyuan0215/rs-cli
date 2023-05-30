@@ -7,12 +7,21 @@ const commander = require("commander");
 const packageJson = require("../package.json");
 
 const program = new commander.Command(packageJson.commandName).usage(
-  "<command> [options]"
+  "<command>"
 );
 
 program
   .command("create <app-name>")
-  .description("create a new project powered by @siyuan0215/rs-cli")
+  .usage("<app-name> [options]")
+  .description("Create a new project powered by @siyuan0215/rs-cli")
+  .option("-F, --force", "overwrite target directory if it exists")
+  .option("-C, --cache", "using cache for dependencies", false)
+  .option("-Y, --with-yarn", "installing dependencies with yarn", false)
+  .option("-T, --taobao", "use taobao registry when installing dependencies")
+  .option(
+    "-R, --registry <url>",
+    "use specified npm registry when installing dependencies (only for npm)"
+  )
   .action((name, options) => {
     const usingYarn = options["withYarn"];
     const usingCache = options["cache"];
@@ -42,16 +51,14 @@ program
         usingTaobao,
       });
     }
-  });
-
-program
-  .option("-F, --force", "Overwrite target directory if it exists")
-  .option("-C, --cache", "using cache for dependencies", false)
-  .option("-Y, --with-yarn", "installing dependencies with yarn", false)
-  .option("-T, --taobao", "Use taobao registry when installing dependencies")
-  .option(
-    "-R, --registry <url>",
-    "Use specified npm registry when installing dependencies (only for npm)"
+  }).addHelpText(
+    "after",
+    `\nExamples:
+  $ rs-cli create my-react-app
+  $ rs-cli create my-react-app-with-yarn -Y
+  $ rs-cli create my-react-app-registry -R https://registry.npmmirror.com
+  $ rs-cli create my-react-app-using-taobao -T
+`
   );
 
 program.version(`@siyuan0215/rs-cli@${packageJson.version}`);
@@ -70,14 +77,6 @@ program
       )}\n`
     );
   })
-  .addHelpText(
-    "after",
-    `Examples:
-  $ rs-cli create my-react-app
-  $ rs-cli create my-react-app-with-yarn -Y
-  $ rs-cli create my-react-app-registry -R https://registry.npmmirror.com
-  $ rs-cli create my-react-app-using-taobao -T
-`
-  );
+  
 
 program.parse(process.argv);

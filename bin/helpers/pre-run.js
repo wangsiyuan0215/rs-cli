@@ -1,4 +1,7 @@
+const fs = require("fs");
 const io = require("./io");
+const path = require("path");
+const chalk = require('chalk')
 const version = require("./version");
 const packageJson = require("../../package.json");
 
@@ -12,7 +15,7 @@ module.exports.nodeChecker = () => {
     packageJson.engines.node,
     "https://nodejs.org/en/"
   );
-  title(nodeVersion);
+  title(`Checked node environment and version ${nodeVersion}`, true);
 };
 
 // 检查当前 npm 版本
@@ -25,7 +28,7 @@ module.exports.npmChecker = () => {
     packageJson.engines.npm,
     "https://docs.npmjs.com/downloading-and-installing-node-js-and-npm"
   );
-  title(npmVersion);
+  title(`Checked npm environment and version ${npmVersion}`, true);
 };
 
 // 检查当前 npm 版本
@@ -38,5 +41,39 @@ module.exports.yarnChecker = () => {
     packageJson.engines.yarn,
     "https://yarnpkg.com/lang/en/docs/install/#mac-stable"
   );
-  title(yarnVersion);
+  title(`Checked yarn environment and version ${yarnVersion}`, true);
+};
+
+module.exports.targetProjectNameChecker = (name, usingForce) => {
+  const title = io.print4title(`Checking if ${name} folder existed`);
+  const projectPath = path.resolve(process.cwd(), name);
+  const isExisted = fs.existsSync(projectPath);
+
+  if (isExisted) {
+    // 验证目标目录是否为空
+    const files = fs.readdirSync(projectPath);
+    if (!usingForce && files.length) {
+      io.print4error(
+        `\n\n  Folder <${name}> is not empty, please make sure it empty or use \`-F/--force\` to overrided by forced.\n`
+      );
+      process.exit(-1);
+    }
+
+    title(
+      `Folder <${name}> has been created, path: ${chalk.magenta(projectPath)}.`,
+      true
+    );
+    fs.rmSync(projectPath, { recursive: true, force: true });
+  } else {
+    title(
+      `Folder <${name}> has been created, path: ${chalk.magenta(projectPath)}.`,
+      true
+    );
+  }
+  fs.mkdirSync(projectPath);
+
+  return {
+    isExisted,
+    projectPath,
+  };
 };

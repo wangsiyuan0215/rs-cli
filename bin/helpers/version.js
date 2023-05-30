@@ -32,7 +32,7 @@ const checker = (command, args = ['--version'], name, version, url) => {
         io.print4error(`
         \n  The \`${command}\` command is not found.
         \n  It may not be installed the \`${name}\` environment. It is recommended to install it first according to the official website tutorial.
-        \n  For more information, please see ${url}`
+        \n  For more information, please see ${url}\n`
         );
         process.exit(0);
     }
