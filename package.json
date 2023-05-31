@@ -1,7 +1,7 @@
 {
     "name": "@siyuan0215/rs-cli",
     "commandName": "rs-cli",
-    "version": "1.2.1",
+    "version": "1.2.4",
     "description": "react staging cli, for generating scaffold with react and umiJs",
     "main": "./bin/index.js",
     "scripts": {
@@ -15,7 +15,7 @@
     ],
     "engines": {
         "npm": "^8.0.0",
-        "node": "^16.0.0",
+        "node": "^16.15.0",
         "yarn": "^1.22.0"
     },
     "repository": {
@@ -39,7 +39,8 @@
         "single-line-log": "^1.1.2"
     },
     "files": [
-        "bin"
+        "bin",
+        "scripts"
     ],
     "templateRepo": {
         "umi4": "wangsiyuan0215/react-template-umi4"
